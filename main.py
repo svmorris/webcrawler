@@ -18,7 +18,7 @@ global SEEN
 SEEN = set()
 
 global TIMEOUT
-TIMEOUT = 0.1
+TIMEOUT = 1
 
 
 def db_setup():
@@ -84,7 +84,12 @@ def recurse_find(url):
 
 
     # downlaod website contents
-    res = S.get(url, headers={'User-Agent': "firefox", 'Accept': 'text/*, application/*, script/*'})
+    try:
+        res = S.get(url, headers={'User-Agent': "firefox", 'Accept': 'text/*, application/*, script/*'})
+    except Exception as e:
+        print(e)
+        return
+
     if res.status_code != 200:
         return
     # print(3)
